@@ -1,0 +1,70 @@
+[COMMON]
+pwd
+ls
+
+[AUTOCOLPLETE]
+sudo apt-get install bash-completion
+sudo apt-get install --reinstall bash-completion
+sudo gedit ~/.bashrc
+//IF NOT EXISTS ADD
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+//RE OPEN TERMINAL
+
+[PRERQUEST]
+sudo apt-get update
+sudo apt-get upgrade
+
+[GUEST ADDITIONS]
+sudo apt install build-essential dkms
+//sudo apt-get install virtualbox-guest-additions-iso
+ON CD cmd> ./autorun.sh
+restart
+sudo adduser $USER vboxsf
+restart
+
+[JAVA NOT WORKNG]
+wget https://download.oracle.com/java/19/latest/jdk-19_linux-x64_bin.deb
+sudo apt-get -qqy install ./jdk-19_linux-x64_bin.deb
+sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk-19/bin/java 1919
+
+[JAVA ADAPTIUM]   
+sudo apt install openjdk-19-jdk
+[OR]
+https://adoptium.net/temurin/releases/
+extract on gnome explorer
+sudo mv jdk-19.0.2+7 /opt/
+sudo chown -R $USER /opt/jdk-19.0.2+7
+sudo gedit /etc/profile
+//ADD BELOW
+# JAVA JDK HOME
+JAVA_HOME=/opt/jdk-19.0.2+7/
+export JAVA_HOME
+PATH=$JAVA_HOME/bin:$PATH
+export PATH
+//RE OPEN TERMINAL
+source /etc/profile
+java --version
+
+[USB]
+lsusb
+https://www.wch-ic.com/downloads/CH341SER_LINUX_ZIP.html
+extract on gnome explorer
+sudo mv driver /opt/
+cd /opt/driver
+- make
+see ch341.ko
+//LOAD
+"sudo make load" or "sudo insmod ch341.ko"
+//UNLOAD
+"sudo make unload" or "sudo rmmod ch341.ko"
+//INSTALL
+sudo make install
+//UNINSTALL
+sudo make uninstall
